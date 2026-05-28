@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd /c/Users/Windows/asc-automation && node asc-create-app.js create \\\"Shadow Boxing\\\" \\\"com.tokyonasu.shadowboxing\\\" \\\"shadowboxing2026\\\" 2>&1\",\"timeout\":120000,\"description\":\"Create app i...",
+  "error": "Exit code 1\nCreating app: Shadow Boxing\nnode:internal/process/promises:394\r\n    triggerUncaughtException(err, true /* fromPromise */);\r\n    ^\r\n\r\npage.waitForLoadState: Timeout 30000ms exceeded.\r\n    at createApp (C:\\Users\\Windows\\asc-automation\\asc-create-app.js:12:16) {\r\n  name: 'TimeoutError'\r\n}\r\n\r\nNode.js v24.14.0",
+  "timestamp": "2026-05-28T03:57:57.754Z",
+  "retry_count": 1
+}
