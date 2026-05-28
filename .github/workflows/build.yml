@@ -22,11 +22,10 @@ jobs:
       - name: Write ASC API key
         env:
           ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
         run: |
           mkdir -p ~/private_keys
           echo "$ASC_KEY_P8" > ~/private_keys/AuthKey_${ASC_KEY_ID}.p8
-        env:
-          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
 
       - name: Build archive
         run: |
