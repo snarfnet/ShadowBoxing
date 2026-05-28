@@ -43,33 +43,15 @@ struct ContentView: View {
     // MARK: - Start
 
     private var startView: some View {
-        VStack(spacing: 30) {
-            Spacer()
-            Text("SHADOW\nBOXING")
-                .font(.system(size: 56, weight: .black, design: .monospaced))
-                .foregroundColor(.red)
-                .multilineTextAlignment(.center)
-
-            Text(isEnglish ? "AI Punch Tracker" : "AIパンチトラッカー")
-                .font(.system(size: 18, weight: .medium, design: .monospaced))
-                .foregroundColor(.red.opacity(0.6))
-
-            Spacer()
-
-            Button {
-                detector.startSession()
-            } label: {
-                Text(isEnglish ? "START" : "スタート")
-                    .font(.system(size: 24, weight: .black, design: .monospaced))
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 18)
-                    .background(.red)
-                    .cornerRadius(16)
-            }
-            .padding(.horizontal, 40)
-            .padding(.bottom, 60)
+        Button {
+            detector.startSession()
+        } label: {
+            Image("StartBg")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
         }
+        .buttonStyle(.plain)
     }
 
     // MARK: - Session
