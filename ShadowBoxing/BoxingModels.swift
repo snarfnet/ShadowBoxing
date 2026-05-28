@@ -4,19 +4,25 @@ import Vision
 // MARK: - Punch Types
 
 enum PunchType: String {
-    case jab = "Jab"
-    case cross = "Cross"
+    case jabLeft = "L-Jab"
+    case jabRight = "R-Jab"
+    case straightLeft = "L-Straight"
+    case straightRight = "R-Straight"
     case hookLeft = "L-Hook"
     case hookRight = "R-Hook"
-    case uppercut = "Uppercut"
+    case uppercutLeft = "L-Uppercut"
+    case uppercutRight = "R-Uppercut"
 
     var jaName: String {
         switch self {
-        case .jab: return "ジャブ"
-        case .cross: return "ストレート"
+        case .jabLeft: return "左ジャブ"
+        case .jabRight: return "右ジャブ"
+        case .straightLeft: return "左ストレート"
+        case .straightRight: return "右ストレート"
         case .hookLeft: return "左フック"
         case .hookRight: return "右フック"
-        case .uppercut: return "アッパー"
+        case .uppercutLeft: return "左アッパー"
+        case .uppercutRight: return "右アッパー"
         }
     }
 }

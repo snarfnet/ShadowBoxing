@@ -127,7 +127,7 @@ final class PunchDetector {
 
         // Upward movement = uppercut
         if dy < -0.03 && abs(dx) < abs(dy) * 0.5 {
-            return .uppercut
+            return isLeft ? .uppercutLeft : .uppercutRight
         }
 
         // Horizontal movement = hook
@@ -139,14 +139,14 @@ final class PunchDetector {
         if let elbow = elbow, let shoulder = shoulder {
             let armLength = hypot(wrist.x - shoulder.x, wrist.y - shoulder.y)
             let upperArm = hypot(elbow.x - shoulder.x, elbow.y - shoulder.y)
-            // Fully extended = jab/cross
+            // Fully extended = straight
             if armLength > upperArm * 1.5 {
-                return isLeft ? .jab : .cross
+                return isLeft ? .straightLeft : .straightRight
             }
         }
 
-        // Default based on hand
-        return isLeft ? .jab : .cross
+        // Default = jab
+        return isLeft ? .jabLeft : .jabRight
     }
 
     private func computePower(velocity: Double, pose: BodyPose, isLeft: Bool) -> Double {
@@ -269,7 +269,7 @@ final class PunchDetector {
 
         // Combination: variety of punch types used
         let typesUsed = stats.punchCounts.filter { $0.value > 0 }.count
-        stats.rating.combination = min(100, Double(typesUsed) / 4 * 100)
+        stats.rating.combination = min(100, Double(typesUsed) / 6 * 100)
     }
 
     private func avg(_ values: ArraySlice<Double>) -> Double {
