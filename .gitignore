@@ -12,3 +12,4 @@ DerivedData/
 *.dSYM
 xcuserdata/
 .DS_Store
+.omc/
