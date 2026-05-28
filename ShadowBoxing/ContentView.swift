@@ -111,6 +111,8 @@ struct ContentView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 16)
+                .padding(.bottom, 8)
+                .background(.black.opacity(0.5))
 
                 Spacer()
 
@@ -122,6 +124,22 @@ struct ContentView: View {
                 }
 
                 Spacer()
+
+                // Form scores panel (right side)
+                HStack {
+                    Spacer()
+                    VStack(alignment: .trailing, spacing: 6) {
+                        formRow(isEnglish ? "Guard" : "ガード", detector.stats.formScore.guardScore)
+                        formRow(isEnglish ? "Stance" : "スタンス", detector.stats.formScore.stanceScore)
+                        formRow(isEnglish ? "Rotation" : "回転", detector.stats.formScore.rotationScore)
+                        formRow(isEnglish ? "Chin" : "顎引き", detector.stats.formScore.chinScore)
+                    }
+                    .padding(10)
+                    .background(.black.opacity(0.6))
+                    .cornerRadius(10)
+                }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 8)
 
                 // Bottom controls
                 HStack(spacing: 30) {
@@ -362,6 +380,17 @@ struct ContentView: View {
                 .font(.system(size: 16, weight: .black, design: .monospaced))
                 .foregroundColor(colorForScore(value))
                 .frame(width: 40, alignment: .trailing)
+        }
+    }
+
+    private func formRow(_ label: String, _ value: Double) -> some View {
+        HStack(spacing: 6) {
+            Text(label)
+                .font(.system(size: 12, weight: .bold, design: .monospaced))
+                .foregroundColor(.white.opacity(0.8))
+            Text(String(format: "%.0f", value))
+                .font(.system(size: 14, weight: .black, design: .monospaced))
+                .foregroundColor(colorForScore(value))
         }
     }
 
