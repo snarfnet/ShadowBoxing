@@ -24,6 +24,7 @@ struct ContentView: View {
         }
         .statusBarHidden(detector.isSessionActive)
         .onAppear {
+            detector.isFrontCamera = !camera.isBackCamera
             camera.onFrame = { [detector, composer] image, time, pose in
                 DispatchQueue.main.async {
                     if let pose = pose { detector.analyze(pose) }

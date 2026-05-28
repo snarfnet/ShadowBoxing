@@ -8,6 +8,7 @@ final class PunchDetector {
     var lastPunchType: PunchType?
     var lastPunchPower: Double = 0
     var isSessionActive = false
+    var isFrontCamera = true  // front camera flips left/right
 
     private var prevLeftWrist: CGPoint?
     private var prevRightWrist: CGPoint?
@@ -22,8 +23,8 @@ final class PunchDetector {
     private var comboBuffer: [PunchType] = []
     private var lastComboTime: CFTimeInterval = 0
 
-    private let punchThreshold: Double = 0.03  // minimum wrist movement per frame
-    private let cooldownInterval: CFTimeInterval = 0.25
+    private let punchThreshold: Double = 0.055  // minimum wrist movement per frame
+    private let cooldownInterval: CFTimeInterval = 0.35
 
     // Form tracking
     private var guardSamples: [Double] = []
@@ -75,12 +76,15 @@ final class PunchDetector {
         let nose = pose.point(.nose)
 
         // Detect punches from wrist velocity
+        // Front camera mirrors the image, so Vision's "left" = user's right
+        let userLeftIsVisionLeft = !isFrontCamera
         if now - lastPunchTime >= cooldownInterval {
             if let lw = lw, let plw = prevLeftWrist {
                 let vel = hypot(lw.x - plw.x, lw.y - plw.y)
                 if vel > punchThreshold {
-                    let punchType = classifyPunch(wrist: lw, prevWrist: plw, elbow: le, shoulder: ls, isLeft: true)
-                    let power = computePower(velocity: vel, pose: pose, isLeft: true)
+                    let isUserLeft = userLeftIsVisionLeft
+                    let punchType = classifyPunch(wrist: lw, prevWrist: plw, elbow: le, shoulder: ls, isLeft: isUserLeft)
+                    let power = computePower(velocity: vel, pose: pose, isLeft: isUserLeft)
                     registerPunch(type: punchType, power: power, now: now)
                 }
             }
@@ -88,8 +92,9 @@ final class PunchDetector {
                 if let rw = rw, let prw = prevRightWrist {
                     let vel = hypot(rw.x - prw.x, rw.y - prw.y)
                     if vel > punchThreshold {
-                        let punchType = classifyPunch(wrist: rw, prevWrist: prw, elbow: re, shoulder: rs, isLeft: false)
-                        let power = computePower(velocity: vel, pose: pose, isLeft: false)
+                        let isUserLeft = !userLeftIsVisionLeft
+                        let punchType = classifyPunch(wrist: rw, prevWrist: prw, elbow: re, shoulder: rs, isLeft: isUserLeft)
+                        let power = computePower(velocity: vel, pose: pose, isLeft: isUserLeft)
                         registerPunch(type: punchType, power: power, now: now)
                     }
                 }
