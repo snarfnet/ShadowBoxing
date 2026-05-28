@@ -17,6 +17,7 @@ targets:
         CURRENT_PROJECT_VERSION: "1"
         DEVELOPMENT_TEAM: 83VGKGSQUH
         CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_NSCameraUsageDescription: "Camera is used to detect your boxing form and count punches in real time."
         INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: "Save recorded shadow boxing sessions to your photo library."
         INFOPLIST_KEY_UILaunchScreen_Generation: true
