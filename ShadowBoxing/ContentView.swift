@@ -25,12 +25,14 @@ struct ContentView: View {
         .statusBarHidden(detector.isSessionActive)
         .onAppear {
             camera.onFrame = { [detector, composer] image, time, pose in
-                if let pose = pose { detector.analyze(pose) }
-                if composer.isRecording {
-                    composer.appendFrame(
-                        cameraImage: image, pose: pose, stats: detector.stats,
-                        lastPunch: detector.lastPunchType, lastPower: detector.lastPunchPower, timestamp: time
-                    )
+                DispatchQueue.main.async {
+                    if let pose = pose { detector.analyze(pose) }
+                    if composer.isRecording {
+                        composer.appendFrame(
+                            cameraImage: image, pose: pose, stats: detector.stats,
+                            lastPunch: detector.lastPunchType, lastPower: detector.lastPunchPower, timestamp: time
+                        )
+                    }
                 }
             }
             camera.start()
