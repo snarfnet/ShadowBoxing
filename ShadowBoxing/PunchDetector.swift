@@ -1,5 +1,6 @@
 import Foundation
 import Vision
+import QuartzCore
 
 @Observable
 final class PunchDetector {

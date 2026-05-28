@@ -1,5 +1,6 @@
 import SwiftUI
 import AVFoundation
+import Vision
 
 struct ContentView: View {
     @State private var camera = CameraManager()
